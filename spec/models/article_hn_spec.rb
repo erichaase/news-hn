@@ -1,109 +1,178 @@
 require 'spec_helper'
 
-# mv article_spec.rb article_hn_spec.rb
+=begin
+published DateTime.new(2008, 6, 28, 19, 50,  6)
+updated   DateTime.new(2011, 9, 26, 14,  3, 14)
+read      DateTime.new(2008, 8, 21,  8, 59,  9)
+clicked   DateTime.new(2008, 7, 15, 12, 30, 31)
 
-$ATTRS = [
-  {
-    title:     "Testing, testing, 1, 2, 3",
-    url:       "http://www.testing.com/1/2/3/",
-    published: DateTime.new(2012, 5, 15,  9, 37, 47),
-    updated:   DateTime.new(2012, 9, 16, 17, 57, 55),
-    read:      DateTime.new(2012, 9, 14, 16, 17, 48),
-    points:    34,
-    comments:  15,
-  },
-  {
-    title:     "This is a test!",
-    url:       "https://www.thisisatest.org/",
-    published: DateTime.new(1998, 7, 21,  1, 26,  0),
-    updated:   DateTime.new(2003, 2,  9, 11, 46,  6),
-    read:      DateTime.new(2001, 6,  1, 10, 52,  2),
-    points:    13,
-    comments:  31,
-  },
-  {
-  title:     "What a wonderful test...",
-  url:       "http://wonderfultest.com/",
-  published: DateTime.new(2008, 6, 28, 19, 50,  6),
-  updated:   DateTime.new(2011, 9, 26, 14,  3, 14),
-  read:      DateTime.new(2008, 8, 21,  8, 59,  9),
-  points:    59,
-  comments:  9,
-  },
-]
+published DateTime.new(1998, 7, 21,  1, 26,  0)
+updated   DateTime.new(2003, 2,  9, 11, 46,  6)
+read      DateTime.new(2001, 6,  1, 10, 52,  2)
+clicked   DateTime.new(2000, 5, 15, 22,  3, 40)
+
+points and dates sort correctly
+
+# numericality
+=end
 
 describe ArticleHN do
 
-  describe "Configuration Data" do
-    before :all do
-      @articles = []
-      $ATTRS.each { |a| @articles.append(ArticleHN.new(a)) }
-    end
-    subject { @articles }
+  before :all do ArticleHN.destroy_all end
+  after  :all do ArticleHN.destroy_all end
 
-    it "should be an instance of ArticleHN" do
-      subject.each { |a| expect(a).to be_an_instance_of(ArticleHN) }
+  describe "factory" do
+    before :all do
+      ArticleHN.destroy_all
+      @article = FactoryGirl.build(:article_hn)
     end
-    it "should be valid" do
-      subject.each { |a| expect(a).to be_valid }
+    after :all do ArticleHN.destroy_all end
+    subject { @article }
+
+    it "builds an ArticleHN object" do
+      expect(subject).to be_an_instance_of(ArticleHN)
     end
-    it "should save successfully" do
-      subject.each { |a| a.save! }
+    it "builds the correct 'type'" do
+      expect(subject.type).to eq("ArticleHN")
+    end
+    it "builds a valid object" do
+      expect(subject).to be_valid
+    end
+    it "builds a saveable object" do
+      expect { subject.save! }.to_not raise_error
     end
   end
 
   describe "#title" do
-    before :all do @article = ArticleHN.new($ATTRS.first) end
+    before :each do @article = FactoryGirl.build(:article_hn) end
     subject { @article }
 
-    it "should respond" do
+    it "responds" do
       expect(subject).to respond_to(:title)
     end
-    it "should have the correct value" do
-      expect(subject.title).to eq($ATTRS.first[:title])
+    it "is assigned the correct value" do
+      expect(subject.title).to eq(FactoryGirl.attributes_for(:article_hn)[:title])
     end
-    it "when nil, should be invalid" do
-      article = ArticleHN.new($ATTRS.first.except(:title))
-      expect(article).to_not be_valid
-    end
-    it "when zero-length, should be invalid" do
-      attrs = $ATTRS.first.except(:title)
-      attrs[:title] = ''
+    it "is invalid when nil" do
+      attrs = FactoryGirl.attributes_for(:article_hn).except(:title)
       article = ArticleHN.new(attrs)
       expect(article).to_not be_valid
+      article.title = nil
+      expect(article).to_not be_valid
     end
-  end
-
-end
-
-=begin
-  describe "#points" do
-    it "sorts by points" do
-      [@a1, @a2, @a3].each { |a| a.save! }
-      ArticleHN.order(:points).should eq [@a2, @a1, @a3]
+    it "is invalid when zero-length" do
+      subject.title = ''
+      expect(subject).to_not be_valid
     end
   end
 
   describe "#url" do
-    describe "when url format is invalid" do
-      it "should be invalid" do
-        urls = %w[http user_at_foo.org example.user@foo. foo@bar_baz.com foo@bar+baz.com]
-        urls.each do |invalid_url|
-          @article.url = invalid_url
-          @article.should_not be_valid
-        end
+    before :each do @article = FactoryGirl.build(:article_hn) end
+    subject { @article }
+
+    it "responds" do
+      expect(subject).to respond_to(:url)
+    end
+    it "is assigned the correct value" do
+      expect(subject.url).to eq(FactoryGirl.attributes_for(:article_hn)[:url])
+    end
+    it "is invalid when nil" do
+      attrs = FactoryGirl.attributes_for(:article_hn).except(:url)
+      article = ArticleHN.new(attrs)
+      expect(article).to_not be_valid
+      article.url = nil
+      expect(article).to_not be_valid
+    end
+    it "is invalid when zero-length" do
+      subject.url = ''
+      expect(subject).to_not be_valid
+    end
+    it "is invalid when format is incorrect" do
+      urls = ['Hello World', 'Goodbye World', 'asdfblahwow', 'http:', 'https:/', 'user_at_foo.org', 'example.user.', 'bar_baz.com', 'bar+baz.com']
+      urls.each do |url|
+        subject.url = url
+        expect(subject).to_not be_valid
       end
     end
-    describe "when url format is valid" do
-      it "should be valid" do
-        urls = %w[http://www.google.com/ https://www.facebook/]
-        urls.each do |valid_url|
-          @article.url = valid_url
-          @article.should be_valid
-        end
+    it "is valid when format is correct" do
+      urls = ['http://www.google.com/', 'https://www.facebook.com/', 'http://www.testing.com/1/2/3/', 'http://wonderfultest.com/', 'https://www.thisisatest.org/']
+      urls.each do |url|
+        subject.url = url
+        expect(subject).to be_valid
       end
     end
   end
 
-  # numericality
-=end
+  describe "#published" do
+    before :each do @article = FactoryGirl.build(:article_hn) end
+    subject { @article }
+
+    it "responds" do
+      expect(subject).to respond_to(:published)
+    end
+    it "is assigned the correct value" do
+      expect(subject.published).to eq(FactoryGirl.attributes_for(:article_hn)[:published])
+    end
+  end
+
+  describe "#updated" do
+    before :each do @article = FactoryGirl.build(:article_hn) end
+    subject { @article }
+
+    it "responds" do
+      expect(subject).to respond_to(:updated)
+    end
+    it "is assigned the correct value" do
+      expect(subject.updated).to eq(FactoryGirl.attributes_for(:article_hn)[:updated])
+    end
+  end
+
+  describe "#read" do
+    before :each do @article = FactoryGirl.build(:article_hn) end
+    subject { @article }
+
+    it "responds" do
+      expect(subject).to respond_to(:read)
+    end
+    it "is assigned the correct value" do
+      expect(subject.read).to eq(FactoryGirl.attributes_for(:article_hn)[:read])
+    end
+  end
+
+  describe "#clicked" do
+    before :each do @article = FactoryGirl.build(:article_hn) end
+    subject { @article }
+
+    it "responds" do
+      expect(subject).to respond_to(:clicked)
+    end
+    it "is assigned the correct value" do
+      expect(subject.clicked).to eq(FactoryGirl.attributes_for(:article_hn)[:clicked])
+    end
+  end
+
+  describe "#points" do
+    before :each do @article = FactoryGirl.build(:article_hn) end
+    subject { @article }
+
+    it "responds" do
+      expect(subject).to respond_to(:points)
+    end
+    it "is assigned the correct value" do
+      expect(subject.points).to eq(FactoryGirl.attributes_for(:article_hn)[:points])
+    end
+  end
+
+  describe "#comments" do
+    before :each do @article = FactoryGirl.build(:article_hn) end
+    subject { @article }
+
+    it "responds" do
+      expect(subject).to respond_to(:comments)
+    end
+    it "is assigned the correct value" do
+      expect(subject.comments).to eq(FactoryGirl.attributes_for(:article_hn)[:comments])
+    end
+  end
+
+end
