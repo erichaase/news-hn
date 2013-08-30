@@ -1,21 +1,5 @@
 require 'spec_helper'
 
-=begin
-published DateTime.new(2008, 6, 28, 19, 50,  6)
-updated   DateTime.new(2011, 9, 26, 14,  3, 14)
-read      DateTime.new(2008, 8, 21,  8, 59,  9)
-clicked   DateTime.new(2008, 7, 15, 12, 30, 31)
-
-published DateTime.new(1998, 7, 21,  1, 26,  0)
-updated   DateTime.new(2003, 2,  9, 11, 46,  6)
-read      DateTime.new(2001, 6,  1, 10, 52,  2)
-clicked   DateTime.new(2000, 5, 15, 22,  3, 40)
-
-points and dates sort correctly
-
-# numericality
-=end
-
 describe ArticleHN do
 
   before :all do ArticleHN.destroy_all end
@@ -32,6 +16,9 @@ describe ArticleHN do
     it "builds an ArticleHN object" do
       expect(subject).to be_an_instance_of(ArticleHN)
     end
+    it "builds an Article-inherited object" do
+      expect(subject).to be_a_kind_of(Article)
+    end
     it "builds the correct 'type'" do
       expect(subject.type).to eq("ArticleHN")
     end
@@ -40,6 +27,17 @@ describe ArticleHN do
     end
     it "builds a saveable object" do
       expect { subject.save! }.to_not raise_error
+    end
+    it "builds an object with the correct attributes" do
+      FactoryGirl.attributes_for(:article_hn).each do |attr, value|
+        expect(subject.send(attr)).to eq(value)
+      end
+    end
+  end
+
+  describe ".model_name" do
+    it "returns parent 'Article'" do
+      expect(ArticleHN.model_name).to eq(Article.model_name)
     end
   end
 
@@ -50,8 +48,13 @@ describe ArticleHN do
     it "responds" do
       expect(subject).to respond_to(:title)
     end
-    it "is assigned the correct value" do
-      expect(subject.title).to eq(FactoryGirl.attributes_for(:article_hn)[:title])
+    it "is a string" do
+      expect(subject.title).to be_an_instance_of(String)
+    end
+    it "is allowed to be mass-assigned" do
+      title = "Hello World!"
+      subject.attributes = { :title => title }
+      expect(subject.title).to eq(title)
     end
     it "is invalid when nil" do
       attrs = FactoryGirl.attributes_for(:article_hn).except(:title)
@@ -73,8 +76,13 @@ describe ArticleHN do
     it "responds" do
       expect(subject).to respond_to(:url)
     end
-    it "is assigned the correct value" do
-      expect(subject.url).to eq(FactoryGirl.attributes_for(:article_hn)[:url])
+    it "is a string" do
+      expect(subject.url).to be_an_instance_of(String)
+    end
+    it "is allowed to be mass-assigned" do
+      url = 'http://www.google.com/'
+      subject.attributes = { :url => url }
+      expect(subject.url).to eq(url)
     end
     it "is invalid when nil" do
       attrs = FactoryGirl.attributes_for(:article_hn).except(:url)
@@ -88,7 +96,7 @@ describe ArticleHN do
       expect(subject).to_not be_valid
     end
     it "is invalid when format is incorrect" do
-      urls = ['Hello World', 'Goodbye World', 'asdfblahwow', 'http:', 'https:/', 'user_at_foo.org', 'example.user.', 'bar_baz.com', 'bar+baz.com']
+      urls = ['Hello World', 'Goodbye World', 'asdfblahwow', 'http:', 'https:/', 'http://', 'user_at_foo.org', 'example.user.', 'bar_baz.com', 'bar+baz.com']
       urls.each do |url|
         subject.url = url
         expect(subject).to_not be_valid
@@ -103,54 +111,6 @@ describe ArticleHN do
     end
   end
 
-  describe "#published" do
-    before :each do @article = FactoryGirl.build(:article_hn) end
-    subject { @article }
-
-    it "responds" do
-      expect(subject).to respond_to(:published)
-    end
-    it "is assigned the correct value" do
-      expect(subject.published).to eq(FactoryGirl.attributes_for(:article_hn)[:published])
-    end
-  end
-
-  describe "#updated" do
-    before :each do @article = FactoryGirl.build(:article_hn) end
-    subject { @article }
-
-    it "responds" do
-      expect(subject).to respond_to(:updated)
-    end
-    it "is assigned the correct value" do
-      expect(subject.updated).to eq(FactoryGirl.attributes_for(:article_hn)[:updated])
-    end
-  end
-
-  describe "#read" do
-    before :each do @article = FactoryGirl.build(:article_hn) end
-    subject { @article }
-
-    it "responds" do
-      expect(subject).to respond_to(:read)
-    end
-    it "is assigned the correct value" do
-      expect(subject.read).to eq(FactoryGirl.attributes_for(:article_hn)[:read])
-    end
-  end
-
-  describe "#clicked" do
-    before :each do @article = FactoryGirl.build(:article_hn) end
-    subject { @article }
-
-    it "responds" do
-      expect(subject).to respond_to(:clicked)
-    end
-    it "is assigned the correct value" do
-      expect(subject.clicked).to eq(FactoryGirl.attributes_for(:article_hn)[:clicked])
-    end
-  end
-
   describe "#points" do
     before :each do @article = FactoryGirl.build(:article_hn) end
     subject { @article }
@@ -158,8 +118,28 @@ describe ArticleHN do
     it "responds" do
       expect(subject).to respond_to(:points)
     end
-    it "is assigned the correct value" do
-      expect(subject.points).to eq(FactoryGirl.attributes_for(:article_hn)[:points])
+    it "is an integer" do
+      expect(subject.points).to be_an_instance_of(Fixnum)
+    end
+    it "is allowed to be mass-assigned" do
+      points = 43
+      subject.attributes = { :points => points }
+      expect(subject.points).to eq(points)
+    end
+    it "is invalid when nil" do
+      attrs = FactoryGirl.attributes_for(:article_hn).except(:points)
+      article = ArticleHN.new(attrs)
+      expect(article).to_not be_valid
+      article.points = nil
+      expect(article).to_not be_valid
+    end
+    it "is invalid when non-numeric" do
+      subject.points = "asdf"
+      expect(subject).to_not be_valid
+    end
+    it "is invalid when less than zero" do
+      subject.points = -1
+      expect(subject).to_not be_valid
     end
   end
 
@@ -170,8 +150,110 @@ describe ArticleHN do
     it "responds" do
       expect(subject).to respond_to(:comments)
     end
-    it "is assigned the correct value" do
-      expect(subject.comments).to eq(FactoryGirl.attributes_for(:article_hn)[:comments])
+    it "is an integer" do
+      expect(subject.comments).to be_an_instance_of(Fixnum)
+    end
+    it "is allowed to be mass-assigned" do
+      comments = 43
+      subject.attributes = { :comments => comments }
+      expect(subject.comments).to eq(comments)
+    end
+    it "is invalid when nil" do
+      attrs = FactoryGirl.attributes_for(:article_hn).except(:comments)
+      article = ArticleHN.new(attrs)
+      expect(article).to_not be_valid
+      article.comments = nil
+      expect(article).to_not be_valid
+    end
+    it "is invalid when non-numeric" do
+      subject.comments = "asdf"
+      expect(subject).to_not be_valid
+    end
+    it "is invalid when less than zero" do
+      subject.comments = -1
+      expect(subject).to_not be_valid
+    end
+  end
+
+  describe "#published" do
+    before :each do @article = FactoryGirl.build(:article_hn) end
+    subject { @article }
+
+    it "responds" do
+      expect(subject).to respond_to(:published)
+    end
+    it "is a DateTime object" do
+      expect(subject.published).to be_an_instance_of(ActiveSupport::TimeWithZone)
+    end
+    it "is allowed to be mass-assigned" do
+      published = DateTime.new(1998, 7, 21,  1, 26,  0)
+      subject.attributes = { :published => published }
+      expect(subject.published).to eq(published)
+    end
+    it "is invalid when nil" do
+      attrs = FactoryGirl.attributes_for(:article_hn).except(:published)
+      article = ArticleHN.new(attrs)
+      expect(article).to_not be_valid
+      article.published = nil
+      expect(article).to_not be_valid
+    end
+  end
+
+  describe "#updated" do
+    before :each do @article = FactoryGirl.build(:article_hn) end
+    subject { @article }
+
+    it "responds" do
+      expect(subject).to respond_to(:updated)
+    end
+    it "is a DateTime object" do
+      expect(subject.updated).to be_an_instance_of(ActiveSupport::TimeWithZone)
+    end
+    it "is allowed to be mass-assigned" do
+      updated = DateTime.new(2003, 2,  9, 11, 46,  6)
+      subject.attributes = { :updated => updated }
+      expect(subject.updated).to eq(updated)
+    end
+    it "is invalid when nil" do
+      attrs = FactoryGirl.attributes_for(:article_hn).except(:updated)
+      article = ArticleHN.new(attrs)
+      expect(article).to_not be_valid
+      article.updated = nil
+      expect(article).to_not be_valid
+    end
+  end
+
+  describe "#read" do
+    before :each do @article = FactoryGirl.build(:article_hn) end
+    subject { @article }
+
+    it "responds" do
+      expect(subject).to respond_to(:read)
+    end
+    it "is a DateTime object" do
+      expect(subject.read).to be_an_instance_of(ActiveSupport::TimeWithZone)
+    end
+    it "is allowed to be mass-assigned" do
+      read = DateTime.new(2000, 5, 15, 22,  3, 40)
+      subject.attributes = { :read => read }
+      expect(subject.read).to eq(read)
+    end
+  end
+
+  describe "#clicked" do
+    before :each do @article = FactoryGirl.build(:article_hn) end
+    subject { @article }
+
+    it "responds" do
+      expect(subject).to respond_to(:clicked)
+    end
+    it "is a DateTime object" do
+      expect(subject.clicked).to be_an_instance_of(ActiveSupport::TimeWithZone)
+    end
+    it "is allowed to be mass-assigned" do
+      clicked = DateTime.new(2001, 6,  1, 10, 52,  2)
+      subject.attributes = { :clicked => clicked }
+      expect(subject.clicked).to eq(clicked)
     end
   end
 

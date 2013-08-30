@@ -1,5 +1,4 @@
 FactoryGirl.define do
-
   factory :article_hn, class: ArticleHN do
     title     "Testing, testing, 1, 2, 3"
     url       "http://www.testing.com/1/2/3/"
@@ -10,5 +9,4 @@ FactoryGirl.define do
     points    34
     comments  15
   end
-
 end

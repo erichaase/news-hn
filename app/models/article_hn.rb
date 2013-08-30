@@ -1,13 +1,12 @@
 class ArticleHN < Article
 
-  attr_accessible :clicked, :comments, :description, :points, :published, :read, :title, :source, :type, :updated, :url
+  attr_accessible :comments, :points
 
-  validates :comments, :points, :published, :title, :updated, :url, :presence => true
-  validates :title, :url, :length => { :minimum => 1 }, :allow_nil => true
-  validates :url, :format => { :with => /^http(s)?:\/\//, :message => "url must start with 'http[s]://" }, :allow_nil => true
+  validates :comments, :published, :points, :title, :updated, :url, :presence => true
+  validates :url, :format => { :with => /^http(s)?:\/\/\S+/, :message => "url must start with 'http[s]://\S'" }, :allow_nil => true, :allow_blank => true
   validates :comments, :points, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
-  # comparison of the following: published, updated, read, clicked
-  # index, unique attributes
+  # TODO add indices for :title and :url
+  # TODO validations to compare the date attributes
 
   def self.model_name
     Article.model_name
