@@ -1,0 +1,24 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+AddClickedDescriptionSourceToArticle	./db/migrate/20130828232224_add_clicked_description_source_to_article.rb	/^class AddClickedDescriptionSourceToArticle < ActiveRecord::Migration$/;"	c	inherits:ActiveRecord.Migration
+Application	./config/application.rb	/^  class Application < Rails::Application$/;"	c	class:News	inherits:Rails.Application
+ApplicationController	./app/controllers/application_controller.rb	/^class ApplicationController < ActionController::Base$/;"	c	inherits:ActionController.Base
+ApplicationHelper	./app/helpers/application_helper.rb	/^module ApplicationHelper$/;"	m
+Article	./app/models/article.rb	/^class Article < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+ArticleHN	./app/models/article_hn.rb	/^class ArticleHN < Article$/;"	c	inherits:Article
+ArticlesController	./app/controllers/articles_controller.rb	/^class ArticlesController < ApplicationController$/;"	c	inherits:ApplicationController
+ArticlesHelper	./app/helpers/articles_helper.rb	/^module ArticlesHelper$/;"	m
+CreateArticles	./db/migrate/20130717014842_create_articles.rb	/^class CreateArticles < ActiveRecord::Migration$/;"	c	inherits:ActiveRecord.Migration
+News	./config/application.rb	/^module News$/;"	m
+Sync	./lib/sync.rb	/^module Sync$/;"	m
+change	./db/migrate/20130828232224_add_clicked_description_source_to_article.rb	/^  def change$/;"	f	class:AddClickedDescriptionSourceToArticle
+change	./db/migrate/20130717014842_create_articles.rb	/^  def change$/;"	f	class:CreateArticles
+create	./app/controllers/articles_controller.rb	/^  def create$/;"	f	class:ArticlesController
+destroy	./app/controllers/articles_controller.rb	/^  def destroy$/;"	f	class:ArticlesController
+edit	./app/controllers/articles_controller.rb	/^  def edit$/;"	f	class:ArticlesController
+index	./app/controllers/articles_controller.rb	/^  def index$/;"	f	class:ArticlesController
+model_name	./app/models/article_hn.rb	/^  def self.model_name$/;"	F	class:ArticleHN
+new	./app/controllers/articles_controller.rb	/^  def new$/;"	f	class:ArticlesController
+process_page	./lib/sync.rb	/^  def Sync.process_page ( opts = {} )$/;"	F	class:Sync.Sync
+show	./app/controllers/articles_controller.rb	/^  def show$/;"	f	class:ArticlesController
+update	./app/controllers/articles_controller.rb	/^  def update$/;"	f	class:ArticlesController
