@@ -30,7 +30,7 @@ module Sync
         return nil if comments.size != 2
         comments = comments[1].text[/^\d+/]
 
-        # TODO add debugging, puts a, td
+        # TODO add debugging logging for a and td
 
         return :points => points, :comments => comments
       }.call(a)
@@ -45,16 +45,18 @@ module Sync
       attrs[:comments]  = data[:comments].to_i
       attrs[:updated]   = now
 
-      # TODO warn if there is more than one article in db (duplicate)
+      # TODO warn if duplicate db entries found
       article = ArticleHN.where(:title => attrs[:title], :url => attrs[:url]).first
 
-      # TODO warn if article validation fails
       if article
-        article = article.update_attributes(attrs)
+        status = article.update_attributes(attrs)
       else
         attrs[:published] = now
-        article = ArticleHN.create(attrs)
+        status = ArticleHN.create(attrs)
       end
+
+      # TODO warn if validation fails (status == false)
+
     end
   end
 
