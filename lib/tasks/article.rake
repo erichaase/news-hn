@@ -2,10 +2,10 @@ require 'sync'
 
 namespace :sync do
 
-  desc "Process a page of articles"
-  task :process => [:environment] do
-    Sync::process_page
-    # TODO mail if exception thrown
+  desc "Process Hacker News pages"
+  task :process_hn => [:environment] do
+    Sync::process_hn
+    # TODO log/mail if exception thrown
   end
 
 end

@@ -19,6 +19,6 @@ edit	./app/controllers/articles_controller.rb	/^  def edit$/;"	f	class:ArticlesC
 index	./app/controllers/articles_controller.rb	/^  def index$/;"	f	class:ArticlesController
 model_name	./app/models/article_hn.rb	/^  def self.model_name$/;"	F	class:ArticleHN
 new	./app/controllers/articles_controller.rb	/^  def new$/;"	f	class:ArticlesController
-process_page	./lib/sync.rb	/^  def Sync.process_page ( opts = {} )$/;"	F	class:Sync.Sync
+process_hn	./lib/sync.rb	/^  def Sync.process_hn ( opts = {} )$/;"	F	class:Sync.Sync
 show	./app/controllers/articles_controller.rb	/^  def show$/;"	f	class:ArticlesController
 update	./app/controllers/articles_controller.rb	/^  def update$/;"	f	class:ArticlesController

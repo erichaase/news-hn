@@ -3,9 +3,9 @@ require 'open-uri'
 
 module Sync
 
-  def Sync.process_page ( opts = {} )
-    if opts[:path]
-      paths = [Rails.root.join('spec', 'lib', 'data', 'hacker_news', opts[:path]).to_s]
+  def Sync.process_hn ( opts = {} )
+    if opts[:paths]
+      paths = opts[:paths].map { |path| Rails.root.join('spec', 'lib', 'data', 'hacker_news', path).to_s }
     else
       paths = ["https://news.ycombinator.com/news", "https://news.ycombinator.com/news2"]
     end
