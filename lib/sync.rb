@@ -10,6 +10,9 @@ module Sync
       path = "https://news.ycombinator.com/news"
     end
 
+    # TODO add logging in production environment
+    # TODO add https://news.ycombinator.com/news2 , https://news.ycombinator.com/best and https://news.ycombinator.com/active
+
     doc = Nokogiri::HTML(open(path).read)
     doc.css('table tr td table tr td.title a').each do |a|
       data = lambda { |a|
