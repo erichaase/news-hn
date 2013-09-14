@@ -1,9 +1,15 @@
-<table>
-<% @articles.each do |article| %>
-  <tr>
-    <td><a href="<%= article.url %>"><%= article.title %></a></td>
-    <td><%= article.points %></td>
-    <td><%= article.comments %></td>
-  </tr>
+<div data-role="page">
+  <ul data-role="listview">
+    <li data-role="list-divider">Hacker News</li>
+<% @articles.each do |a| %>
+    <li data-icon="false"><a href="<%= a.url %>" target="_blank">
+      <p style="white-space: normal"><strong><%= a.title %></strong></p>
+      <p style="white-space: normal"><%= a.url.sub(/^http(s)?:\/\//, '').sub(/\/.*/, '') %></p>
+      <span class="ui-li-count"><%= a.points %></span>
+    </a></li>
 <% end %>
-</table>
+    <li data-icon="forward"><a href="">
+      <h2>Next articles</h2>
+    </a></li>
+  </ul>
+</div>

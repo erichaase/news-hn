@@ -25,6 +25,8 @@ end
 
 gem 'jquery-rails', '2.0.2'
 
+gem 'jquery_mobile_rails'
+
 gem 'nokogiri'
 
 # To use ActiveModel has_secure_password
