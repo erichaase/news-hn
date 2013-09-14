@@ -1,5 +1,23 @@
+module ReadConstraint
+  extend self
+  def matches?(request)
+    request.request_parameters["attr"] == "read"
+  end
+end
+
+module ClickedConstraint
+  extend self
+  def matches?(request)
+    request.request_parameters["attr"] == "clicked"
+  end
+end
+
 News::Application.routes.draw do
   resources :articles
+
+  get 'hn'     => 'articles#index',   :defaults => { type: :hn }
+  put 'hn'     => 'articles#read',    :defaults => { type: :hn }, :constraints => ReadConstraint
+  put 'hn/:id' => 'articles#clicked', :defaults => { type: :hn }, :constraints => ClickedConstraint
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

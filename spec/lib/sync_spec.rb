@@ -31,8 +31,8 @@ describe Sync do
       end
     end
 
-    it "parses live HN sites correctly (rake task)"
-    it "parses 130901A.html, 130901B.html and 130901C.html correctly"
+    # TODO parses 130901A.html, 130901B.html and 130901C.html correctly
+    # TODO parses live HN sites correctly (rake task)
 
   end
 
