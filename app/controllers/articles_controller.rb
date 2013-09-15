@@ -3,7 +3,14 @@ class ArticlesController < ApplicationController
   def index
     case params[:type]
     when :hn
-      @articles = ArticleHN.order("points DESC")[0..19]
+      @articles = ArticleHN.where(read: nil).order("points DESC")[0..9]
+
+      @ids = ''
+      @articles.each do |article|
+        @ids += ',' if not @ids.blank?
+        @ids += article.id.to_s
+      end
+
       respond_to do |format|
         format.html
         format.json { render json: @articles }
@@ -14,7 +21,22 @@ class ArticlesController < ApplicationController
   end
 
   def read
-# TODO process params[:type] and params[:ids]
+    case params[:type]
+    when :hn
+      ids = []
+      params[:ids].split(',').each { |id| ids.append(id.to_i) }
+      articles = ArticleHN.find(ids)
+
+      now = DateTime.now
+      articles.each do |article|
+        status = article.update_attributes(:read => now)
+        # TODO warn if save fails
+      end
+
+      render nothing: true
+    else
+      render text: "Unknown article type", status: :not_implemented
+    end
   end
 
   def clicked

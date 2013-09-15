@@ -59,7 +59,7 @@ module Sync
           status = ArticleHN.create(attrs)
         end
 
-        # TODO warn if validation fails (status == false)
+        # TODO warn if save fails
 
       end
     end

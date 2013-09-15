@@ -8,17 +8,17 @@ Article	./app/models/article.rb	/^class Article < ActiveRecord::Base$/;"	c	inher
 ArticleHN	./app/models/article_hn.rb	/^class ArticleHN < Article$/;"	c	inherits:Article
 ArticlesController	./app/controllers/articles_controller.rb	/^class ArticlesController < ApplicationController$/;"	c	inherits:ApplicationController
 ArticlesHelper	./app/helpers/articles_helper.rb	/^module ArticlesHelper$/;"	m
+ClickedConstraint	./config/routes.rb	/^module ClickedConstraint$/;"	m
 CreateArticles	./db/migrate/20130717014842_create_articles.rb	/^class CreateArticles < ActiveRecord::Migration$/;"	c	inherits:ActiveRecord.Migration
 News	./config/application.rb	/^module News$/;"	m
+ReadConstraint	./config/routes.rb	/^module ReadConstraint$/;"	m
 Sync	./lib/sync.rb	/^module Sync$/;"	m
 change	./db/migrate/20130828232224_add_clicked_description_source_to_article.rb	/^  def change$/;"	f	class:AddClickedDescriptionSourceToArticle
 change	./db/migrate/20130717014842_create_articles.rb	/^  def change$/;"	f	class:CreateArticles
-create	./app/controllers/articles_controller.rb	/^  def create$/;"	f	class:ArticlesController
-destroy	./app/controllers/articles_controller.rb	/^  def destroy$/;"	f	class:ArticlesController
-edit	./app/controllers/articles_controller.rb	/^  def edit$/;"	f	class:ArticlesController
+clicked	./app/controllers/articles_controller.rb	/^  def clicked$/;"	f	class:ArticlesController
 index	./app/controllers/articles_controller.rb	/^  def index$/;"	f	class:ArticlesController
+matches?	./config/routes.rb	/^  def matches?(request)$/;"	f	class:ClickedConstraint
+matches?	./config/routes.rb	/^  def matches?(request)$/;"	f	class:ReadConstraint
 model_name	./app/models/article_hn.rb	/^  def self.model_name$/;"	F	class:ArticleHN
-new	./app/controllers/articles_controller.rb	/^  def new$/;"	f	class:ArticlesController
 process_hn	./lib/sync.rb	/^  def Sync.process_hn ( opts = {} )$/;"	F	class:Sync.Sync
-show	./app/controllers/articles_controller.rb	/^  def show$/;"	f	class:ArticlesController
-update	./app/controllers/articles_controller.rb	/^  def update$/;"	f	class:ArticlesController
+read	./app/controllers/articles_controller.rb	/^  def read$/;"	f	class:ArticlesController

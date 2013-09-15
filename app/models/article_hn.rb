@@ -1,6 +1,6 @@
 class ArticleHN < Article
 
-  # TODO add indices for :title and :url
+  # TODO add indices for :title and :url (:id already included?)
   # TODO validations to compare the date attributes
 
   attr_accessible :comments, :points

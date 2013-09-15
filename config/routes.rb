@@ -1,7 +1,7 @@
 module ReadConstraint
   extend self
   def matches?(request)
-    request.request_parameters["attr"] == "read"
+    request.request_parameters["attr"] == "read" && request.request_parameters["ids"][/^\d+(,\d+)*$/]
   end
 end
 
