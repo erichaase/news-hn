@@ -27,6 +27,8 @@ class ArticlesController < ApplicationController
       params[:ids].split(',').each { |id| ids.append(id.to_i) }
       articles = ArticleHN.find(ids)
 
+      # TODO warn/error if articles is nil
+
       now = DateTime.now
       articles.each do |article|
         status = article.update_attributes(:read => now)
@@ -40,26 +42,22 @@ class ArticlesController < ApplicationController
   end
 
   def clicked
-# TODO process params[:type] and params[:id]
-  end
+    case params[:type]
+    when :hn
+      # TODO validate params[:id] input data
 
+      article = ArticleHN.find(params[:id].to_i)
 
-=begin
-  # PUT /articles/1
-  # PUT /articles/1.json
-  def update
-    @article = Article.find(params[:id])
+      # TODO warn/error if article is nil
 
-    respond_to do |format|
-      if @article.update_attributes(params[:article])
-        format.html { redirect_to @article, notice: 'Article was successfully updated.' }
-        format.json { head :no_content }
+      if article.update_attributes(:clicked => DateTime.now)
+        render nothing: true
       else
-        format.html { render action: "edit" }
-        format.json { render json: @article.errors, status: :unprocessable_entity }
+        render text: "update_attributes() failed: #{article.errors.full_messages}", status: :internal_server_error
       end
+    else
+      render text: "Unknown article type", status: :not_implemented
     end
   end
-=end
 
 end
