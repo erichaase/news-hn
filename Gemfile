@@ -25,7 +25,7 @@ end
 
 gem 'jquery-rails', '2.0.2'
 
-gem 'jquery_mobile_rails'
+gem 'jquery_mobile_rails', '1.3.2'
 
 gem 'nokogiri'
 

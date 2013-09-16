@@ -3,7 +3,7 @@ require 'open-uri'
 
 module Sync
 
-  def Sync.process_hn ( opts = {} )
+  def Sync.hn ( opts = {} )
     if opts[:paths]
       paths = opts[:paths].map { |path| Rails.root.join('spec', 'lib', 'data', 'hacker_news', path).to_s }
     else

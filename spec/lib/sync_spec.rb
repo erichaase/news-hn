@@ -5,16 +5,16 @@ describe Sync do
 
   include Sync
 
-  describe ".process_hn" do
+  describe ".hn" do
 
     before :each do ArticleHN.destroy_all end
 
     it "raises an error when passed a filename that doesn't exist" do
-      expect { Sync.process_hn(:paths => ["hello_world.html"]) }.to raise_error
+      expect { Sync.hn(:paths => ["hello_world.html"]) }.to raise_error
     end
 
     it "parses 130901.html correctly" do
-      Sync.process_hn(:paths => ["130901.html"])
+      Sync.hn(:paths => ["130901.html"])
 
       path = Rails.root.join('spec', 'lib', 'data', 'hacker_news', '130901.json').to_s
       json = JSON.parse(open(path).read)
