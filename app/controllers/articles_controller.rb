@@ -30,12 +30,12 @@ class ArticlesController < ApplicationController
 
       now = DateTime.now
       articles.each do |article|
-        if article.update_attributes(:read => now)
-          render nothing: true
-        else
-          render text: "update_attributes() failed: #{article.errors.full_messages}", status: :internal_server_error
+        if not article.update_attributes(:read => now)
+          render text: "update_attributes() failed: #{article.errors.full_messages}", status: :internal_server_error and return
         end
       end
+
+      render nothing: true
     else
       render text: "Unknown article type", status: :not_implemented
     end
