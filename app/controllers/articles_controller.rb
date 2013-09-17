@@ -26,16 +26,16 @@ class ArticlesController < ApplicationController
       ids = []
       params[:ids].split(',').each { |id| ids.append(id.to_i) }
       articles = ArticleHN.find(ids)
-
-      # TODO warn/error if articles is nil
+      # TODO read: warn/error if no articles found
 
       now = DateTime.now
       articles.each do |article|
-        status = article.update_attributes(:read => now)
-        # TODO warn if save fails
+        if article.update_attributes(:read => now)
+          render nothing: true
+        else
+          render text: "update_attributes() failed: #{article.errors.full_messages}", status: :internal_server_error
+        end
       end
-
-      render nothing: true
     else
       render text: "Unknown article type", status: :not_implemented
     end
@@ -44,11 +44,9 @@ class ArticlesController < ApplicationController
   def clicked
     case params[:type]
     when :hn
-      # TODO validate params[:id] input data
-
+      # TODO clicked: validate params[:id] input data
       article = ArticleHN.find(params[:id].to_i)
-
-      # TODO warn/error if article is nil
+      # TODO clicked: warn/error if no articles found
 
       if article.update_attributes(:clicked => DateTime.now)
         render nothing: true
