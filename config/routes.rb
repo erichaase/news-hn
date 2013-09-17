@@ -13,7 +13,6 @@ module ClickedConstraint
 end
 
 News::Application.routes.draw do
-  resources :articles
 
   get 'hn'     => 'articles#index',   :defaults => { type: :hn }
   put 'hn'     => 'articles#read',    :defaults => { type: :hn }, :constraints => ReadConstraint
