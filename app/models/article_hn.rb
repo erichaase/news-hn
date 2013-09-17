@@ -13,4 +13,15 @@ class ArticleHN < Article
     Article.model_name
   end
 
+  def to_s
+    out = sprintf("%4d  %4d  ", points, comments)
+
+    [published, updated, read, clicked].each do |date|
+      ds = date ? date.localtime.strftime('%y/%m/%d|%H:%M:%S') : '_________________'
+      out += sprintf("%17s  ", ds)
+    end
+
+    out += sprintf("%s", title)
+  end
+
 end
