@@ -9,15 +9,11 @@ class ArticleHN < Article
   validates :url, :format => { :with => /^http(s)?:\/\/\S+/, :message => "url must start with 'http[s]://\S'" }, :allow_nil => true, :allow_blank => true
   validates :comments, :points, :numericality => { :only_integer => true, :greater_than_or_equal_to => 0 }
 
-  def self.model_name
-    Article.model_name
-  end
-
   def to_s
     out = sprintf("%4d  %4d  ", points, comments)
 
     [published, updated, read, clicked].each do |date|
-      ds = date ? date.localtime.strftime('%y/%m/%d|%H:%M:%S') : '_________________'
+      ds = date ? date.localtime.strftime('%y/%m/%d|%H:%M:%S') : '_' * 17
       out += sprintf("%17s  ", ds)
     end
 
