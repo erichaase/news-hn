@@ -4,7 +4,7 @@
 <% @articles.each do |a| %>
     <li data-icon="false"><a href="<%= a.url %>" target="_blank" onclick="clicked('<%= a.id.to_s %>')">
       <p style="white-space: normal"><strong><%= a.title %></strong></p>
-      <p style="white-space: normal"><%= a.url.sub(/^http(s)?:\/\//, '').sub(/\/.*/, '') %></p>
+      <p style="white-space: normal"><%= a.url_short %></p>
       <span class="ui-li-count"><%= a.points %></span>
     </a></li>
 <% end %>

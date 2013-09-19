@@ -7,7 +7,7 @@ module Sync
     if opts[:paths]
       paths = opts[:paths].map { |path| Rails.root.join('spec', 'lib', 'data', 'hacker_news', path).to_s }
     else
-      paths = ["https://news.ycombinator.com/news", "https://news.ycombinator.com/news2"]
+      paths = ["https://news.ycombinator.com/news", "https://news.ycombinator.com/news2", "https://news.ycombinator.com/best"]
     end
 
     # TODO add logging in production environment

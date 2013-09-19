@@ -1,25 +1,25 @@
 !_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
 !_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
-AddClickedDescriptionSourceToArticle	./db/migrate/20130828232224_add_clicked_description_source_to_article.rb	/^class AddClickedDescriptionSourceToArticle < ActiveRecord::Migration$/;"	c	inherits:ActiveRecord.Migration
-Application	./config/application.rb	/^  class Application < Rails::Application$/;"	c	class:News	inherits:Rails.Application
-ApplicationController	./app/controllers/application_controller.rb	/^class ApplicationController < ActionController::Base$/;"	c	inherits:ActionController.Base
-ApplicationHelper	./app/helpers/application_helper.rb	/^module ApplicationHelper$/;"	m
-Article	./app/models/article.rb	/^class Article < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
-ArticleHN	./app/models/article_hn.rb	/^class ArticleHN < Article$/;"	c	inherits:Article
-ArticlesController	./app/controllers/articles_controller.rb	/^class ArticlesController < ApplicationController$/;"	c	inherits:ApplicationController
-ArticlesHelper	./app/helpers/articles_helper.rb	/^module ArticlesHelper$/;"	m
-ClickedConstraint	./config/routes.rb	/^module ClickedConstraint$/;"	m
-CreateArticles	./db/migrate/20130717014842_create_articles.rb	/^class CreateArticles < ActiveRecord::Migration$/;"	c	inherits:ActiveRecord.Migration
-News	./config/application.rb	/^module News$/;"	m
-ReadConstraint	./config/routes.rb	/^module ReadConstraint$/;"	m
-Sync	./lib/sync.rb	/^module Sync$/;"	m
-change	./db/migrate/20130717014842_create_articles.rb	/^  def change$/;"	f	class:CreateArticles
-change	./db/migrate/20130828232224_add_clicked_description_source_to_article.rb	/^  def change$/;"	f	class:AddClickedDescriptionSourceToArticle
-clicked	./app/controllers/articles_controller.rb	/^  def clicked$/;"	f	class:ArticlesController
-hn	./lib/sync.rb	/^  def Sync.hn ( opts = {} )$/;"	F	class:Sync.Sync
-index	./app/controllers/articles_controller.rb	/^  def index$/;"	f	class:ArticlesController
-matches?	./config/routes.rb	/^  def matches?(request)$/;"	f	class:ClickedConstraint
-matches?	./config/routes.rb	/^  def matches?(request)$/;"	f	class:ReadConstraint
-model_name	./app/models/article_hn.rb	/^  def self.model_name$/;"	F	class:ArticleHN
-read	./app/controllers/articles_controller.rb	/^  def read$/;"	f	class:ArticlesController
-to_s	./app/models/article_hn.rb	/^  def to_s$/;"	f	class:ArticleHN
+AddClickedDescriptionSourceToArticle	/home/eric/news/db/migrate/20130828232224_add_clicked_description_source_to_article.rb	/^class AddClickedDescriptionSourceToArticle < ActiveRecord::Migration$/;"	c	inherits:ActiveRecord.Migration
+Application	/home/eric/news/config/application.rb	/^  class Application < Rails::Application$/;"	c	class:News	inherits:Rails.Application
+ApplicationController	/home/eric/news/app/controllers/application_controller.rb	/^class ApplicationController < ActionController::Base$/;"	c	inherits:ActionController.Base
+ApplicationHelper	/home/eric/news/app/helpers/application_helper.rb	/^module ApplicationHelper$/;"	m
+Article	/home/eric/news/app/models/article.rb	/^class Article < ActiveRecord::Base$/;"	c	inherits:ActiveRecord.Base
+ArticleHN	/home/eric/news/app/models/article_hn.rb	/^class ArticleHN < Article$/;"	c	inherits:Article
+ArticlesController	/home/eric/news/app/controllers/articles_controller.rb	/^class ArticlesController < ApplicationController$/;"	c	inherits:ApplicationController
+ArticlesHelper	/home/eric/news/app/helpers/articles_helper.rb	/^module ArticlesHelper$/;"	m
+ClickedConstraint	/home/eric/news/config/routes.rb	/^module ClickedConstraint$/;"	m
+CreateArticles	/home/eric/news/db/migrate/20130717014842_create_articles.rb	/^class CreateArticles < ActiveRecord::Migration$/;"	c	inherits:ActiveRecord.Migration
+News	/home/eric/news/config/application.rb	/^module News$/;"	m
+ReadConstraint	/home/eric/news/config/routes.rb	/^module ReadConstraint$/;"	m
+Sync	/home/eric/news/lib/sync.rb	/^module Sync$/;"	m
+change	/home/eric/news/db/migrate/20130717014842_create_articles.rb	/^  def change$/;"	f	class:CreateArticles
+change	/home/eric/news/db/migrate/20130828232224_add_clicked_description_source_to_article.rb	/^  def change$/;"	f	class:AddClickedDescriptionSourceToArticle
+clicked	/home/eric/news/app/controllers/articles_controller.rb	/^  def clicked$/;"	f	class:ArticlesController
+hn	/home/eric/news/lib/sync.rb	/^  def Sync.hn ( opts = {} )$/;"	F	class:Sync.Sync
+index	/home/eric/news/app/controllers/articles_controller.rb	/^  def index$/;"	f	class:ArticlesController
+matches?	/home/eric/news/config/routes.rb	/^  def matches?(request)$/;"	f	class:ClickedConstraint
+matches?	/home/eric/news/config/routes.rb	/^  def matches?(request)$/;"	f	class:ReadConstraint
+read	/home/eric/news/app/controllers/articles_controller.rb	/^  def read$/;"	f	class:ArticlesController
+to_s	/home/eric/news/app/models/article_hn.rb	/^  def to_s$/;"	f	class:ArticleHN
+url_short	/home/eric/news/app/models/article_hn.rb	/^  def url_short$/;"	f	class:ArticleHN

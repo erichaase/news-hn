@@ -17,7 +17,11 @@ class ArticleHN < Article
       out += sprintf("%17s  ", ds)
     end
 
-    out += sprintf("%s", title)
+    out += sprintf("%s (%s)", title, url_short)
+  end
+
+  def url_short
+    url.sub(/^http(s)?:\/\//, '').sub(/\/.*$/, '')
   end
 
 end
