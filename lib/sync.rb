@@ -11,7 +11,7 @@ module Sync
     end
 
     # TODO add logging in production environment
-    # TODO add https://news.ycombinator.com/best and https://news.ycombinator.com/active
+    # TODO add https://news.ycombinator.com/active
 
     paths.each do |path|
       doc = Nokogiri::HTML(open(path).read)

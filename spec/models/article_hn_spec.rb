@@ -35,12 +35,6 @@ describe ArticleHN do
     end
   end
 
-  describe ".model_name" do
-    it "returns parent 'Article'" do
-      expect(ArticleHN.model_name).to eq(Article.model_name)
-    end
-  end
-
   describe "#title" do
     before :each do @article = FactoryGirl.build(:article_hn) end
     subject { @article }
