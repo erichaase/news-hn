@@ -4,6 +4,10 @@
 capybara-*.html
 .rspec
 .rvmrc
+**.orig
+rerun.txt
+pickle-email-*.html
+.project
 /.bundle
 /vendor/bundle
 /log
@@ -12,9 +16,6 @@ capybara-*.html
 /public/system/*
 /coverage/
 /spec/tmp/*
-**.orig
-rerun.txt
-pickle-email-*.html
-.project
-config/initializers/secret_token.rb
-config/database.yml
+/config/initializers/secret_token.rb
+/config/database.yml
+/.secret
